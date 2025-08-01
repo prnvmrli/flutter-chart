@@ -392,6 +392,8 @@ class _FullscreenChartState extends State<FullscreenChart> {
                   ClipRect(
                     child: DerivChart(
                       useDrawingToolsV2: true,
+                      showCrosshair: true,
+                      crosshairVariant: CrosshairVariant.largeScreen,
                       interactiveLayerBehaviour: _interactiveLayerBehaviour,
                       mainSeries: _getDataSeries(style),
                       markerSeries: MarkerSeries(
@@ -411,12 +413,12 @@ class _FullscreenChartState extends State<FullscreenChart> {
                                 ticks.last,
                                 style: const HorizontalBarrierStyle(
                                   color: DarkThemeColors.currentSpotDotColor,
-                                  labelShape: LabelShape.pentagon,
+                                  labelShape: LabelShape.rectangle,
                                   hasBlinkingDot: true,
                                   hasArrow: false,
                                   lineColor:
                                       DarkThemeColors.currentSpotLineColor,
-                                  isDashed: false,
+                                  isDashed: true,
                                   labelShapeBackgroundColor:
                                       DarkThemeColors.currentSpotContainerColor,
                                   textStyle: TextStyle(

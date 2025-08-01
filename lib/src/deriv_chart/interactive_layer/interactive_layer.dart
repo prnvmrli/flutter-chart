@@ -74,6 +74,7 @@ class InteractiveLayer extends StatefulWidget {
     this.pipSize = 4,
     this.onCrosshairAppeared,
     this.onCrosshairDisappeared,
+    this.onChartTap,
     super.key,
   });
 
@@ -125,6 +126,9 @@ class InteractiveLayer extends StatefulWidget {
 
   /// Crosshair controller
   final CrosshairController crosshairController;
+
+  /// Called when the user taps anywhere on the chart
+  final Function(int epoch, double quote)? onChartTap;
 
   /// The variant of the crosshair to be used.
   /// This is used to determine the type of crosshair to display.
@@ -237,6 +241,14 @@ class _InteractiveLayerState extends State<InteractiveLayer> {
       epochToX: widget.epochToCanvasX,
       quoteToY: widget.quoteToCanvasY,
       series: widget.series,
+      onChartTap: (Offset localPosition) {
+        if (widget.onChartTap != null) {
+          final epoch = widget.epochFromCanvasX(localPosition.dx);
+          final quote = widget.quoteFromCanvasY(localPosition.dy);
+
+          widget.onChartTap!(epoch, quote);
+        }
+      },
       chartConfig: widget.chartConfig,
       addingDrawingTool: widget.drawingTools.selectedDrawingTool,
       quoteRange: widget.quoteRange,
@@ -279,6 +291,7 @@ class _InteractiveLayerGestureHandler extends StatefulWidget {
     this.pipSize = 4,
     this.onCrosshairAppeared,
     this.onCrosshairDisappeared,
+    this.onChartTap,
   });
 
   final List<InteractableDrawing> drawings;
@@ -324,6 +337,9 @@ class _InteractiveLayerGestureHandler extends StatefulWidget {
 
   /// Crosshair controller
   final CrosshairController crosshairController;
+
+  /// Called when the user taps anywhere on the chart
+  final Function(Offset localPosition)? onChartTap;
 
   /// The variant of the crosshair to be used.
   /// This is used to determine the type of crosshair to display.
@@ -800,6 +816,8 @@ class _InteractiveLayerGestureHandlerState
 
   // Tap handler
   void _handleTapUp(TapUpDetails details) {
+    widget.onChartTap!(details.localPosition);
+
     final bool hitDrawing = widget.interactiveLayerBehaviour.onTap(details);
 
     _updateInteractionMode(

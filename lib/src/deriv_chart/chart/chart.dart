@@ -79,6 +79,7 @@ class Chart extends StatefulWidget {
     this.showScrollToLastTickButton,
     this.loadingAnimationColor,
     this.useDrawingToolsV2 = false,
+    this.onChartTap,
     Key? key,
   }) : super(key: key);
 
@@ -201,6 +202,9 @@ class Chart extends StatefulWidget {
 
   /// The interactive layer behaviour.
   final InteractiveLayerBehaviour? interactiveLayerBehaviour;
+
+  /// Called when user taps anywhere on the chart area
+  final Function(int epoch, double quote)? onChartTap;
 
   @override
   State<StatefulWidget> createState() =>
@@ -431,7 +435,7 @@ abstract class _ChartState extends State<Chart> with WidgetsBindingObserver {
       }
     }
 
-    // Check if the the expanded bottom indicator is moved/removed.
+    // Check if the expanded bottom indicator is moved/removed.
     if (expandedIndex != null &&
         oldWidget.bottomConfigs.length != widget.bottomConfigs.length &&
         expandedIndex! < (oldWidget.bottomConfigs.length)) {

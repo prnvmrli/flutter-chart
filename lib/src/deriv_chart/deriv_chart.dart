@@ -70,6 +70,7 @@ class DerivChart extends StatefulWidget {
     this.crosshairVariant = CrosshairVariant.smallScreen,
     this.interactiveLayerBehaviour,
     this.useDrawingToolsV2 = false,
+    this.onChartTap,
     Key? key,
   }) : super(key: key);
 
@@ -202,6 +203,9 @@ class DerivChart extends StatefulWidget {
   /// If not set it will be set internally to [InteractiveLayerDesktopBehaviour]
   /// on web and [InteractiveLayerMobileBehaviour] on mobile or other platforms.
   final InteractiveLayerBehaviour? interactiveLayerBehaviour;
+
+  /// Called when user taps anywhere on the chart area
+  final Function(int epoch, double quote)? onChartTap;
 
   @override
   _DerivChartState createState() => _DerivChartState();
@@ -391,6 +395,7 @@ class _DerivChartState extends State<DerivChart> {
                 showCurrentTickBlinkAnimation:
                     widget.showCurrentTickBlinkAnimation,
                 verticalPaddingFraction: widget.verticalPaddingFraction,
+                onChartTap: widget.onChartTap,
                 bottomChartTitleMargin: widget.bottomChartTitleMargin,
                 showDataFitButton: widget.showDataFitButton,
                 showScrollToLastTickButton: widget.showScrollToLastTickButton,

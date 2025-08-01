@@ -119,6 +119,7 @@ class _ChartStateMobile extends _ChartState {
                   controller: _controller,
                   mainSeries: widget.mainSeries,
                   overlaySeries: overlaySeries,
+                  onChartTap: widget.onChartTap,
                   annotations: widget.annotations,
                   markerSeries: widget.markerSeries,
                   pipSize: widget.pipSize,

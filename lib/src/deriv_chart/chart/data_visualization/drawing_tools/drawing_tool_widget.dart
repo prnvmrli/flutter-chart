@@ -69,7 +69,7 @@ class DrawingToolWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(bahar-deriv): Deligate the creation of drawing to the specific
+    // TODO(bahar-deriv): Delegate the creation of drawing to the specific
     // drawing tool config
     final String drawingToolType = selectedDrawingTool.toJson()['name'];
 

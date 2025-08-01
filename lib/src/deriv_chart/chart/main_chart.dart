@@ -67,6 +67,7 @@ class MainChart extends BasicChart {
     VisibleQuoteAreaChangedCallback? onQuoteAreaChanged,
     this.interactiveLayerBehaviour,
     this.useDrawingToolsV2 = false,
+    this.onChartTap,
   })  : _mainSeries = mainSeries,
         chartDataList = <ChartData>[
           mainSeries,
@@ -148,6 +149,9 @@ class MainChart extends BasicChart {
   /// The default is [CrosshairVariant.smallScreen].
   /// [CrosshairVariant.largeScreen] is mostly for web.
   final CrosshairVariant crosshairVariant;
+
+  /// Called when user taps anywhere on the chart area
+  final Function(int epoch, double quote)? onChartTap;
 
   @override
   _ChartImplementationState createState() => _ChartImplementationState();
@@ -460,6 +464,7 @@ class _ChartImplementationState extends BasicChartState<MainChart> {
             series: widget.mainSeries as DataSeries<Tick>,
             drawingToolsRepo: context.watch<Repository<DrawingToolConfig>>(),
             chartConfig: context.watch<ChartConfig>(),
+            onChartTap: widget.onChartTap,
             quoteToCanvasY: chartQuoteToCanvasY,
             epochToCanvasX: xAxis.xFromEpoch,
             quoteFromCanvasY: chartQuoteFromCanvasY,
@@ -478,7 +483,6 @@ class _ChartImplementationState extends BasicChartState<MainChart> {
         },
       );
 
-  // ignore: unused_element
   Widget _buildDrawingToolChart(DrawingTools drawingTools) =>
       MultipleAnimatedBuilder(
         animations: <Listenable>[
