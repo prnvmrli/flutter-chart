@@ -26,7 +26,7 @@ void paintDrawingLabel(
     _labelString = quoteFromY!(coord).toStringAsFixed(config.pipSize);
   } else {
     final DateTime _dateTime =
-        DateTime.fromMillisecondsSinceEpoch(epochFromX!(coord), isUtc: true);
+        DateTime.fromMillisecondsSinceEpoch(epochFromX!(coord));
 
     _labelString = DateFormat('MM-dd HH:mm:ss').format(_dateTime);
   }

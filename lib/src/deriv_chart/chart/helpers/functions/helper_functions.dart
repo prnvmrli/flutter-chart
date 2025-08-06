@@ -113,6 +113,6 @@ class MinMaxIndices {
 /// ```
 String formatEpochToGMTDateTime(int epochMillis) {
   final dateTime =
-      DateTime.fromMillisecondsSinceEpoch(epochMillis, isUtc: true);
+      DateTime.fromMillisecondsSinceEpoch(epochMillis);
   return '${DateFormat('yy-MM-dd HH:mm:ss').format(dateTime)} GMT';
 }
